@@ -36,7 +36,6 @@ class BasePage:
                 until_not(EC.presence_of_element_located(locator))
         except TimeoutException:
             return False
-
         return True
 
     def get_element(self, locator: tuple):
@@ -71,5 +70,5 @@ class BasePage:
         assert self.is_element_present(BasePageLocators.BASKET_LINK), "Basket link is not presented"
 
     def should_be_authorized_user(self):
-        assert self.is_element_present(*BasePageLocators.USER_ICON), \
+        assert self.is_element_present(BasePageLocators.USER_ICON), \
             "User icon is not presented, probably unauthorised user"

@@ -49,3 +49,9 @@ class ProductPage(BasePage):
         message_basket_product_name = self.get_element(ProductPageLocators.MESSAGES_ABOUT_PRODUCT_NAME)
         assert message_basket_product_name.text == self.product_name, \
             "Product name in message not equal to actual product name"
+
+    def cant_see_success_message(self):
+        assert self.is_not_element_present(ProductPageLocators.MESSAGES_ABOUT_PRODUCT_NAME), "Success message is present"
+
+    def success_page_should_be_disappeared(self):
+        assert self.is_disappeared(ProductPageLocators.MESSAGES_ABOUT_PRODUCT_NAME), "Success message is still present"
