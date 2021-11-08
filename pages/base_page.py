@@ -4,6 +4,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, NoAlertPresentException, TimeoutException
 
+from .locators import *
+
 
 class BasePage:
     def __init__(self, browser, url, timeout=10):
@@ -26,7 +28,6 @@ class BasePage:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located(locator))
         except TimeoutException:
             return True
-
         return False
 
     def is_disappeared(self, locator: tuple, timeout=4):
@@ -54,3 +55,21 @@ class BasePage:
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def go_to_login_page(self):
+        link = self.get_element(BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    def go_to_basket_page(self):
+        link = self.get_element(BasePageLocators.BASKET_LINK)
+        link.click()
+
+    def should_be_login_link(self):
+        assert self.is_element_present(BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def should_be_basket_link(self):
+        assert self.is_element_present(BasePageLocators.BASKET_LINK), "Basket link is not presented"
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), \
+            "User icon is not presented, probably unauthorised user"
